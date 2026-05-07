@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Resume Builder</title>
+    <meta name="description" content="Build your resume dynamically with live preview and multiple premium templates.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Editor Sidebar -->
+        <aside class="editor-sidebar no-print">
+            <header class="sidebar-header">
+                <h1>Resume Builder</h1>
+                <p>Create your professional resume in minutes.</p>
+            </header>
+
+            <div class="controls-section">
+                <button class="btn btn-primary" id="btn-export">
+                    <i data-lucide="download"></i> Download PDF
+                </button>
+            </div>
+
+            <div class="template-selector">
+                <h3>Select Template</h3>
+                <div class="template-buttons">
+                    <button class="btn-template active" data-template="modern">Modern</button>
+                    <button class="btn-template" data-template="minimal">Minimal</button>
+                    <button class="btn-template" data-template="professional">Professional</button>
+                    <button class="btn-template" data-template="creative">Creative</button>
+                </div>
+            </div>
+
+            <form id="resume-form" class="editor-form">
+                <!-- Personal Details -->
+                <section class="form-section">
+                    <h2><i data-lucide="user"></i> Personal Details</h2>
+                    <div class="input-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="John Doe" value="John Doe">
+                    </div>
+                    <div class="input-group">
+                        <label for="jobTitle">Job Title</label>
+                        <input type="text" id="jobTitle" placeholder="Software Engineer" value="Software Engineer">
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="john@example.com" value="john@example.com">
+                    </div>
+                    <div class="input-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" placeholder="+1 234 567 890" value="+1 234 567 8900">
+                    </div>
+                    <div class="input-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" placeholder="New York, NY" value="New York, NY">
+                    </div>
+                    <div class="input-group">
+                        <label for="summary">Professional Summary</label>
+                        <textarea id="summary" rows="4" placeholder="A brief summary of your professional background.">Passionate software engineer with 5+ years of experience in developing scalable web applications. Strong background in JavaScript, React, and Node.js.</textarea>
+                    </div>
+                </section>
+
+                <!-- Experience -->
+                <section class="form-section">
+                    <h2><i data-lucide="briefcase"></i> Experience</h2>
+                    <div id="experience-list"></div>
+                    <button type="button" class="btn btn-secondary btn-add" id="btn-add-experience">
+                        <i data-lucide="plus"></i> Add Experience
+                    </button>
+                </section>
+
+                <!-- Education -->
+                <section class="form-section">
+                    <h2><i data-lucide="graduation-cap"></i> Education</h2>
+                    <div id="education-list"></div>
+                    <button type="button" class="btn btn-secondary btn-add" id="btn-add-education">
+                        <i data-lucide="plus"></i> Add Education
+                    </button>
+                </section>
+
+                <!-- Skills -->
+                <section class="form-section">
+                    <h2><i data-lucide="zap"></i> Skills</h2>
+                    <div class="input-group">
+                        <label for="skills">Skills (comma separated)</label>
+                        <textarea id="skills" rows="3" placeholder="React, JavaScript, CSS, HTML">JavaScript, React, HTML5, CSS3, Node.js, Python, SQL, Git</textarea>
+                    </div>
+                </section>
+            </form>
+        </aside>
+
+        <!-- Live Preview -->
+        <main class="preview-area">
+            <div class="preview-container" id="preview-container">
+                <!-- Resume content injected here via JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Templates (Hidden in DOM, used for rendering) -->
+    <template id="template-modern-html">
+        <div class="resume-layout modern-layout">
+            <header class="modern-header">
+                <div class="header-content">
+                    <h1 class="r-name"></h1>
+                    <h2 class="r-jobtitle"></h2>
+                    <p class="r-summary"></p>
+                </div>
+            </header>
+            <div class="modern-body">
+                <div class="modern-main">
+                    <section class="r-section">
+                        <h3 class="section-title">Experience</h3>
+                        <div class="r-experience-list"></div>
+                    </section>
+                    <section class="r-section">
+                        <h3 class="section-title">Education</h3>
+                        <div class="r-education-list"></div>
+                    </section>
+                </div>
+                <aside class="modern-sidebar">
+                    <section class="r-section">
+                        <h3 class="section-title">Contact</h3>
+                        <ul class="contact-list">
+                            <li><i data-lucide="mail"></i> <span class="r-email"></span></li>
+                            <li><i data-lucide="phone"></i> <span class="r-phone"></span></li>
+                            <li><i data-lucide="map-pin"></i> <span class="r-location"></span></li>
+                        </ul>
+                    </section>
+                    <section class="r-section">
+                        <h3 class="section-title">Skills</h3>
+                        <div class="r-skills-list modern-skills"></div>
+                    </section>
+                </aside>
+            </div>
+        </div>
+    </template>
+
+    <template id="template-minimal-html">
+        <div class="resume-layout minimal-layout">
+            <header class="minimal-header">
+                <h1 class="r-name"></h1>
+                <h2 class="r-jobtitle"></h2>
+                <div class="contact-inline">
+                    <span class="r-email"></span> &bull; 
+                    <span class="r-phone"></span> &bull; 
+                    <span class="r-location"></span>
+                </div>
+            </header>
+            <section class="r-section minimal-summary-section">
+                <p class="r-summary"></p>
+            </section>
+            <section class="r-section">
+                <h3 class="section-title">Experience</h3>
+                <div class="r-experience-list"></div>
+            </section>
+            <section class="r-section">
+                <h3 class="section-title">Education</h3>
+                <div class="r-education-list"></div>
+            </section>
+            <section class="r-section">
+                <h3 class="section-title">Skills</h3>
+                <div class="r-skills-list minimal-skills"></div>
+            </section>
+        </div>
+    </template>
+
+    <template id="template-professional-html">
+        <div class="resume-layout professional-layout">
+            <header class="professional-header">
+                <h1 class="r-name"></h1>
+                <div class="contact-info">
+                    <span class="r-location"></span> | 
+                    <span class="r-phone"></span> | 
+                    <span class="r-email"></span>
+                </div>
+            </header>
+            <section class="r-section">
+                <h3 class="section-title">Professional Summary</h3>
+                <p class="r-summary"></p>
+            </section>
+            <section class="r-section">
+                <h3 class="section-title">Core Competencies</h3>
+                <div class="r-skills-list professional-skills"></div>
+            </section>
+            <section class="r-section">
+                <h3 class="section-title">Professional Experience</h3>
+                <div class="r-experience-list"></div>
+            </section>
+            <section class="r-section">
+                <h3 class="section-title">Education</h3>
+                <div class="r-education-list"></div>
+            </section>
+        </div>
+    </template>
+
+    <template id="template-creative-html">
+        <div class="resume-layout creative-layout">
+            <div class="creative-sidebar">
+                <div class="creative-header">
+                    <h1 class="r-name"></h1>
+                    <h2 class="r-jobtitle"></h2>
+                </div>
+                <section class="r-section">
+                    <h3 class="section-title">Contact</h3>
+                    <div class="contact-item"><i data-lucide="mail"></i> <span class="r-email"></span></div>
+                    <div class="contact-item"><i data-lucide="phone"></i> <span class="r-phone"></span></div>
+                    <div class="contact-item"><i data-lucide="map-pin"></i> <span class="r-location"></span></div>
+                </section>
+                <section class="r-section">
+                    <h3 class="section-title">Skills</h3>
+                    <div class="r-skills-list creative-skills"></div>
+                </section>
+            </div>
+            <div class="creative-main">
+                <section class="r-section">
+                    <h3 class="section-title">Profile</h3>
+                    <p class="r-summary"></p>
+                </section>
+                <section class="r-section">
+                    <h3 class="section-title">Experience</h3>
+                    <div class="r-experience-list"></div>
+                </section>
+                <section class="r-section">
+                    <h3 class="section-title">Education</h3>
+                    <div class="r-education-list"></div>
+                </section>
+            </div>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+
+    <script src="app.js"></script>
+</body>
+</html>
