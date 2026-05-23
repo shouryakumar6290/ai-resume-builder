@@ -161,8 +161,8 @@ This project is licensed under the MIT License.
 
 # 👨‍💻 Author
 
-### Shourya Kumar
+Built with ❤️ by Shourya Kumar.
 
-Made with ❤️ using HTML, CSS & JavaScript
+using HTML, CSS & JavaScript
 
 </div>
