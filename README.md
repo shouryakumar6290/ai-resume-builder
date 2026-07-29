@@ -299,9 +299,9 @@ Passionate about building modern, user-friendly, and impactful applications.
 
 ---
 
-### 💙 Built with HTML, CSS & JavaScript
+### 💙 Built with HTML, CSS & JavaScript by Shourya Kumar
 
-### ⭐ Thank You for Visiting! ⭐
+### ⭐ Thank a lot for Visiting! ⭐
 
 If you enjoyed this project, don't forget to leave a ⭐ on the repository.
 
