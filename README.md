@@ -291,7 +291,7 @@ Your support inspires future improvements.
 
 # 👨‍💻 Author
 
-## Shourya Kumar
+## Built with 💙 by Shourya Kumar
 
 ### AI • Machine Learning • Web Development
 
